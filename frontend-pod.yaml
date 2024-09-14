@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-pod
+spec:
+  containers:
+  - name: frontend
+    image: <your-dockerhub-username>/mean-frontend:latest
+    ports:
+    - containerPort: 80
