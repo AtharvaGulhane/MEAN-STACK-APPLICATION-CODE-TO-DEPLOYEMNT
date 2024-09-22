@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        def frontendImage = docker.build("${FRONTEND_DOCKER_IMAGE}:${BUILD_NUMBER}")
+                        def frontendImage = docker.build("${FRONTEND_DOCKER_IMAGE}:${BUILD_NUMBER}", "--no-cache .")
                     }
                 }
             }
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     dir('backend') {
-                        def backendImage = docker.build("${BACKEND_DOCKER_IMAGE}:${BUILD_NUMBER}")
+                        def backendImage = docker.build("${BACKEND_DOCKER_IMAGE}:${BUILD_NUMBER}", "--no-cache .")
                     }
                 }
             }
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     dir('mongodb') { // Assuming you have a directory for MongoDB
-                        def mongoImage = docker.build("${MONGODB_DOCKER_IMAGE}:${BUILD_NUMBER}")
+                        def mongoImage = docker.build("${MONGODB_DOCKER_IMAGE}:${BUILD_NUMBER}", "--no-cache .")
                     }
                 }
             }
