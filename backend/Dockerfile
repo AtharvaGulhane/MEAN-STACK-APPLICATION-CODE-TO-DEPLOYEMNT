@@ -1,5 +1,5 @@
 # Stage 1: Build the Node.js app
-FROM node:14 AS build
+FROM node:18-alpine as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build  # Assuming you have a build step, adjust if necessary
 
 # Stage 2: Serve the app
-FROM node:14
+FROM node:18-alpine as build
 WORKDIR /app
 COPY --from=build /app ./
 EXPOSE 4800
