@@ -4,6 +4,7 @@ pipeline {
     environment {
         FRONTEND_DOCKER_IMAGE = 'gulhaneatharva/mean-frontend'
         BACKEND_DOCKER_IMAGE = 'gulhaneatharva/mean-backend'
+        MONGODB_DOCKER_IMAGE = 'gulhaneatharva/mean-mongodb'
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
         GIT_CREDENTIALS_ID = 'github-private-repo'
         KUBECONFIG_PATH = 'C:\\Users\\AG\\.kube\\config'
@@ -36,6 +37,16 @@ pipeline {
             }
         }
 
+        stage('Build MongoDB Docker Image') {
+            steps {
+                script {
+                    dir('mongodb') { // Assuming you have a directory for MongoDB
+                        def mongoImage = docker.build("${MONGODB_DOCKER_IMAGE}:${BUILD_NUMBER}")
+                    }
+                }
+            }
+        }
+
         stage('Push Frontend Docker Image') {
             steps {
                 script {
@@ -60,21 +71,60 @@ pipeline {
             }
         }
 
-        stage('Deploy to Minikube') {
+        stage('Push MongoDB Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
+                        def mongoImage = docker.image("${MONGODB_DOCKER_IMAGE}:${BUILD_NUMBER}")
+                        mongoImage.push()
+                        mongoImage.push('latest')
+                    }
+                }
+            }
+        }
+
+        stage('Deploy MongoDB') {
             steps {
                 script {
                     def kubectlCmd = 'kubectl'
 
                     if (isUnix()) {
-                        // Unix-like environments
-                        sh "${kubectlCmd} config use-context minikube"
-                        sh "${kubectlCmd} apply -f frontend-service.yaml"
-                        sh "${kubectlCmd} apply -f backend-service.yaml"
+                        sh "${kubectlCmd} apply -f mongo-pvc.yaml"
+                        sh "${kubectlCmd} apply -f mongodb-pod.yaml"
+                        sh "${kubectlCmd} apply -f mongodb-service.yaml"
                     } else {
                         // Windows environment using cmd or PowerShell
-                        bat "${kubectlCmd} config use-context minikube"
-                        bat "${kubectlCmd} apply -f frontend-service.yaml"
-                        bat "${kubectlCmd} apply -f backend-service.yaml"
+                        bat "${kubectlCmd} apply -f mongo-pvc.yaml"
+                        bat "${kubectlCmd} apply -f mongodb-pod.yaml"
+                        bat "${kubectlCmd} apply -f mongodb-service.yaml"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy Frontend') {
+            steps {
+                script {
+                    def kubectlCmd = 'kubectl'
+
+                    if (isUnix()) {
+                        sh "${kubectlCmd} apply -f frontend-deployment.yaml"
+            } else {
+                        bat "${kubectlCmd} apply -f frontend-deployment.yaml"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy Backend') {
+            steps {
+                script {
+                    def kubectlCmd = 'kubectl'
+
+                    if (isUnix()) {
+                        sh "${kubectlCmd} apply -f backend-deployment.yaml"
+            } else {
+                        bat "${kubectlCmd} apply -f backend-deployment.yaml"
                     }
                 }
             }

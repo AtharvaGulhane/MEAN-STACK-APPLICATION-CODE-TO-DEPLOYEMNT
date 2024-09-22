@@ -5,6 +5,6 @@ metadata:
 spec:
   containers:
   - name: frontend
-    image: <your-dockerhub-username>/mean-frontend:latest
+    image: gulhaneatharva/mean-frontend:latest
     ports:
     - containerPort: 80
