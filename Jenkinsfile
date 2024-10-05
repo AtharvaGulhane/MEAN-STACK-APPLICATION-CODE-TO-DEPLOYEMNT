@@ -89,14 +89,14 @@ pipeline {
                     def kubectlCmd = 'kubectl'
 
                     if (isUnix()) {
-                        sh "${kubectlCmd} apply -f mongo-pvc.yaml"
-                        sh "${kubectlCmd} apply -f mongodb-pod.yaml"
-                        sh "${kubectlCmd} apply -f mongodb-service.yaml"
+                        sh "${kubectlCmd} apply -f mongodb/mongo-pvc.yaml"
+                        sh "${kubectlCmd} apply -f mongodb/mongodb-pod.yaml"
+                        sh "${kubectlCmd} apply -f mongodb/mongodb-service.yaml"
                     } else {
                         // Windows environment using cmd or PowerShell
-                        bat "${kubectlCmd} apply -f mongo-pvc.yaml"
-                        bat "${kubectlCmd} apply -f mongodb-pod.yaml"
-                        bat "${kubectlCmd} apply -f mongodb-service.yaml"
+                        bat "${kubectlCmd} apply -f mongodb/mongo-pvc.yaml"
+                        bat "${kubectlCmd} apply -f mongodb/mongodb-pod.yaml"
+                        bat "${kubectlCmd} apply -f mongodb/mongodb-service.yaml"
                     }
                 }
             }
@@ -108,9 +108,9 @@ pipeline {
                     def kubectlCmd = 'kubectl'
 
                     if (isUnix()) {
-                        sh "${kubectlCmd} apply -f frontend-deployment.yaml"
+                        sh "${kubectlCmd} apply -f frontend/frontend-deployment.yaml"
             } else {
-                        bat "${kubectlCmd} apply -f frontend-deployment.yaml"
+                        bat "${kubectlCmd} apply -f frontend/frontend-deployment.yaml"
                     }
                 }
             }
@@ -122,9 +122,9 @@ pipeline {
                     def kubectlCmd = 'kubectl'
 
                     if (isUnix()) {
-                        sh "${kubectlCmd} apply -f backend-deployment.yaml"
+                        sh "${kubectlCmd} apply -f backend/backend-deployment.yaml"
             } else {
-                        bat "${kubectlCmd} apply -f backend-deployment.yaml"
+                        bat "${kubectlCmd} apply -f backend/backend-deployment.yaml"
                     }
                 }
             }
