@@ -1,14 +1,20 @@
-# Stage 1: Build
-FROM node:18-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+# Stage 1: Use Node.js to run the Express.js backend
+FROM node:18-alpine
 
-# Stage 2: Serve the app
-FROM nginx:alpine
+# Set working directory
 WORKDIR /app
-COPY --from=build /app/dist/backend /usr/share/nginx/html
+
+# Copy package.json and package-lock.json files to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy all files
+COPY . .
+
+# Expose the backend port (change if necessary)
 EXPOSE 4800
-CMD ["node", "server.js"] 
+
+# Start the Express server
+CMD ["npm", "start"]
