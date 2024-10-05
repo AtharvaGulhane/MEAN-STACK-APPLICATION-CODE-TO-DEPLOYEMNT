@@ -21,27 +21,7 @@ pipeline {
             steps {
                 script {
                     dir('frontend') {
-                        def frontendImage = docker.build("${FRONTEND_DOCKER_IMAGE}:${BUILD_NUMBER}", "--no-cache .")
-                    }
-                }
-            }
-        }
-
-        stage('Build Backend Docker Image') {
-            steps {
-                script {
-                    dir('backend') {
-                        def backendImage = docker.build("${BACKEND_DOCKER_IMAGE}:${BUILD_NUMBER}", "--no-cache .")
-                    }
-                }
-            }
-        }
-
-        stage('Build MongoDB Docker Image') {
-            steps {
-                script {
-                    dir('mongodb') { // Assuming you have a directory for MongoDB
-                        def mongoImage = docker.build("${MONGODB_DOCKER_IMAGE}:${BUILD_NUMBER}", "--no-cache .")
+                        def frontendImage = docker.build("${FRONTEND_DOCKER_IMAGE}:${BUILD_NUMBER}", '--no-cache .')
                     }
                 }
             }
@@ -59,6 +39,16 @@ pipeline {
             }
         }
 
+        stage('Build Backend Docker Image') {
+            steps {
+                script {
+                    dir('backend') {
+                        def backendImage = docker.build("${BACKEND_DOCKER_IMAGE}:${BUILD_NUMBER}", '--no-cache .')
+                    }
+                }
+            }
+        }
+
         stage('Push Backend Docker Image') {
             steps {
                 script {
@@ -66,6 +56,16 @@ pipeline {
                         def backendImage = docker.image("${BACKEND_DOCKER_IMAGE}:${BUILD_NUMBER}")
                         backendImage.push()
                         backendImage.push('latest')
+                    }
+                }
+            }
+        }
+
+        stage('Build MongoDB Docker Image') {
+            steps {
+                script {
+                    dir('mongodb') { // Assuming you have a directory for MongoDB
+                        def mongoImage = docker.build("${MONGODB_DOCKER_IMAGE}:${BUILD_NUMBER}", '--no-cache .')
                     }
                 }
             }
