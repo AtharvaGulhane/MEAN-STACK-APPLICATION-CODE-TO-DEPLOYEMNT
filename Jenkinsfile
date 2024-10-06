@@ -108,10 +108,14 @@ pipeline {
                     def kubectlCmd = 'kubectl'
 
                     if (isUnix()) {
-                        sh "${kubectlCmd} apply -f frontend/frontend-deployment.yaml"
-            } else {
-                        bat "${kubectlCmd} apply -f frontend/frontend-deployment.yaml"
+                        sh "${kubectlCmd} apply -f frontend/frontend-pod.yaml"
+                        sh "${kubectlCmd} apply -f frontend/frontend-service.yaml"
                     }
+            else
+            {
+                        sh "${kubectlCmd} apply -f frontend/frontend-pod.yaml"
+                        sh "${kubectlCmd} apply -f frontend/frontend-service.yaml"
+            }
                 }
             }
         }
@@ -122,9 +126,11 @@ pipeline {
                     def kubectlCmd = 'kubectl'
 
                     if (isUnix()) {
-                        sh "${kubectlCmd} apply -f backend/backend-deployment.yaml"
+                        sh "${kubectlCmd} apply -f backend/backend-pod.yaml"
+                        sh "${kubectlCmd} apply -f backend/backend-service.yaml"
             } else {
-                        bat "${kubectlCmd} apply -f backend/backend-deployment.yaml"
+                        bat "${kubectlCmd} apply -f backend/backend-pod.yaml"
+                        bat "${kubectlCmd} apply -f backend/backend-service.yaml"
                     }
                 }
             }
