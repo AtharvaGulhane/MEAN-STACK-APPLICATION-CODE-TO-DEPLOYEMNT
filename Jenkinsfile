@@ -113,8 +113,8 @@ pipeline {
                     }
             else
             {
-                        sh "${kubectlCmd} apply -f frontend/frontend-pod.yaml"
-                        sh "${kubectlCmd} apply -f frontend/frontend-service.yaml"
+                        bat "${kubectlCmd} apply -f frontend/frontend-pod.yaml"
+                        bat "${kubectlCmd} apply -f frontend/frontend-service.yaml"
             }
                 }
             }
