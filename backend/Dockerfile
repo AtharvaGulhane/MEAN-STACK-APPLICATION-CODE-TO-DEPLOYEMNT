@@ -16,13 +16,13 @@ EXPOSE 4800
 CMD ["npm", "start"]
 
 # Stage 2: Use Nginx as a reverse proxy for the backend
-FROM nginx:alpine
+#FROM nginx:alpine
 
 # Copy custom nginx.conf
-COPY nginx.conf /etc/nginx/nginx.conf
+#COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose the proxy port (usually 80)
-EXPOSE 80
+#EXPOSE 80
 
 # Run Nginx in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+#CMD ["nginx", "-g", "daemon off;"]
