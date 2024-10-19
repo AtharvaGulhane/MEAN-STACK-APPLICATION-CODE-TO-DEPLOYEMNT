@@ -5,6 +5,6 @@ metadata:
 spec:
   containers:
   - name: backend
-    image: <your-dockerhub-username>/mean-backend:latest
+    image: gulhaneatharva/mean-backend:latest
     ports:
     - containerPort: 3000

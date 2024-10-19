@@ -3,7 +3,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3000:3000"
+      - "4800:4800"
     networks:
       - mean-network
 
