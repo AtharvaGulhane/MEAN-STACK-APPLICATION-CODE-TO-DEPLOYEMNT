@@ -1,4 +1,7 @@
-# MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT
+You can add a section for images that showcase the Jenkins deployment process. Here’s how you can incorporate that into the `README.md`:
+
+```markdown
+# MEAN Stack Application Deployment
 
 This repository contains the code and configuration for deploying a MEAN stack application using Docker, Kubernetes, and Jenkins.
 
@@ -8,6 +11,7 @@ This repository contains the code and configuration for deploying a MEAN stack a
 - [Setup](#setup)
 - [Deployment Steps](#deployment-steps)
 - [Accessing the Application](#accessing-the-application)
+- [Deployment Screenshots](#deployment-screenshots)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -80,6 +84,18 @@ minikube service frontend-service --url
 ```
 
 This command will provide you with the URL to access your frontend application.
+
+## Deployment Screenshots
+
+Below are some screenshots showcasing the Jenkins deployment process:
+
+### Jenkins Deployment Start
+![Jenkins Deployment Start](images/Starting%20New%20Deployemnt.png)
+
+### Jenkins Deployment Completion
+![Jenkins Deployment Completion](images/Succesful%20Deployemnt.png)
+
+Make sure to replace `path/to/your/start-screenshot.png` and `path/to/your/completion-screenshot.png` with the actual paths to your images.
 
 ## Contributing
 
