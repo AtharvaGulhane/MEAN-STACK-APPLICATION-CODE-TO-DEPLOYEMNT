@@ -1,0 +1,791 @@
+Started by user Atharva Gulhane
+
+Obtained Jenkinsfile from git https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-private-repo
+Cloning the remote Git repository
+Cloning repository https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT
+ > git.exe init C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT # timeout=10
+Fetching upstream changes from https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.41.0.windows.3'
+using GIT_ASKPASS to set credentials Github Credetials
+ > git.exe fetch --tags --force --progress -- https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe config remote.origin.url https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT # timeout=10
+ > git.exe config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git.exe rev-parse "refs/remotes/origin/functional-branch^{commit}" # timeout=10
+Checking out Revision 502a8a468d6b52c39780076c36c38812a9d4d331 (refs/remotes/origin/functional-branch)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f 502a8a468d6b52c39780076c36c38812a9d4d331 # timeout=10
+Commit message: "Add an input stage to decide whether to proceed or abort"
+ > git.exe rev-list --no-walk 534d438a065cbe4e94aef779ab7ddc33d4b05404 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout Code)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-private-repo
+ > git.exe rev-parse --resolve-git-dir C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT\.git # timeout=10
+Fetching changes from the remote Git repository
+ > git.exe config remote.origin.url https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT # timeout=10
+Fetching upstream changes from https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.41.0.windows.3'
+using GIT_ASKPASS to set credentials Github Credetials
+ > git.exe fetch --tags --force --progress -- https://github.com/AtharvaGulhane/MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe rev-parse "refs/remotes/origin/functional-branch^{commit}" # timeout=10
+Checking out Revision 502a8a468d6b52c39780076c36c38812a9d4d331 (refs/remotes/origin/functional-branch)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f 502a8a468d6b52c39780076c36c38812a9d4d331 # timeout=10
+ > git.exe branch -a -v --no-abbrev # timeout=10
+ > git.exe checkout -b functional-branch 502a8a468d6b52c39780076c36c38812a9d4d331 # timeout=10
+Commit message: "Add an input stage to decide whether to proceed or abort"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Frontend Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] dir
+Running in C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT\frontend
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT\frontend>docker build -t "gulhaneatharva/mean-frontend:3" --no-cache . 
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 684B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:18-alpine
+#2 ...
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/nginx:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/nginx:alpine
+#5 ...
+
+#2 [internal] load metadata for docker.io/library/node:18-alpine
+#2 DONE 3.4s
+
+#5 [internal] load metadata for docker.io/library/nginx:alpine
+#5 DONE 3.6s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 380B 0.0s done
+#6 DONE 0.1s
+
+#7 [stage-1 1/2] FROM docker.io/library/nginx:alpine@sha256:2140dad235c130ac861018a4e13a6bc8aea3a35f3a40e20c1b060d51a7efd250
+#7 CACHED
+
+#8 [build 1/6] FROM docker.io/library/node:18-alpine@sha256:02376a266c84acbf45bd19440e08e48b1c8b98037417334046029ab585de03e2
+#8 DONE 0.0s
+
+#9 [build 2/6] WORKDIR /app
+#9 CACHED
+
+#10 [internal] load build context
+#10 transferring context: 539.20kB 0.2s done
+#10 DONE 0.3s
+
+#11 [build 3/6] COPY package*.json ./
+#11 DONE 0.1s
+
+#12 [build 4/6] RUN npm install
+#12 17.26 npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+#12 17.92 npm warn deprecated read-package-json@7.0.1: This package is no longer supported. Please use @npmcli/package-json instead.
+#12 21.27 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+#12 22.27 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+#12 60.31 
+#12 60.31 added 943 packages, and audited 944 packages in 59s
+#12 60.31 
+#12 60.31 119 packages are looking for funding
+#12 60.31   run `npm fund` for details
+#12 60.35 
+#12 60.35 7 vulnerabilities (4 low, 2 moderate, 1 high)
+#12 60.35 
+#12 60.35 To address all issues, run:
+#12 60.35   npm audit fix
+#12 60.35 
+#12 60.35 Run `npm audit` for details.
+#12 60.35 npm notice
+#12 60.35 npm notice New minor version of npm available! 10.7.0 -> 10.9.0
+#12 60.35 npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.9.0
+#12 60.35 npm notice To update run: npm install -g npm@10.9.0
+#12 60.35 npm notice
+#12 DONE 60.6s
+
+#13 [build 5/6] COPY . .
+#13 DONE 0.1s
+
+#14 [build 6/6] RUN npm run build
+#14 1.108 
+#14 1.108 > frontend@0.0.0 build
+#14 1.108 > ng build
+#14 1.108 
+#14 3.233 - Building...
+#14 3.233 
+#14 24.84 ERROR Xt {
+#14 24.84   headers: t {
+#14 24.84     normalizedNames: Map(0) {},
+#14 24.84     lazyUpdate: null,
+#14 24.84     headers: Map(0) {}
+#14 24.84   },
+#14 24.84   status: 0,
+#14 24.84   statusText: 'Unknown Error',
+#14 24.84   url: 'http://localhost:4800/api/users',
+#14 24.84   ok: false,
+#14 24.84   name: 'HttpErrorResponse',
+#14 24.84   message: 'Http failure response for http://localhost:4800/api/users: 0 undefined',
+#14 24.84   error: TypeError: fetch failed
+#14 24.84       at node:internal/deps/undici/undici:12618:11
+#14 24.84       at a.invoke (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/polyfills.server.mjs:3:6702)
+#14 24.84       at Object.onInvoke (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/chunk-7SXDZZNF.mjs:34:6571)
+#14 24.84       at a.invoke (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/polyfills.server.mjs:3:6642)
+#14 24.84       at m.run (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/polyfills.server.mjs:3:1965)
+#14 24.84       at file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/polyfills.server.mjs:4:577
+#14 24.84       at a.invokeTask (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/polyfills.server.mjs:3:7328)
+#14 24.84       at Object.onInvokeTask (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/chunk-7SXDZZNF.mjs:34:6387)
+#14 24.84       at a.invokeTask (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/polyfills.server.mjs:3:7249)
+#14 24.84       at m.runTask (file:///app/.angular/prerender-root/e32350e1-8c28-4a5e-b00a-4951c85125ee/polyfills.server.mjs:3:2604) {
+#14 24.84     cause: Error: connect ECONNREFUSED ::1:4800
+#14 24.84         at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+#14 24.84       errno: -111,
+#14 24.84       code: 'ECONNREFUSED',
+#14 24.84       syscall: 'connect',
+#14 24.84       address: '::1',
+#14 24.84       port: 4800
+#14 24.84     }
+#14 24.84   }
+#14 24.84 }
+#14 25.87 ERROR Xt {
+#14 25.87   headers: t {
+#14 25.87     normalizedNames: Map(0) {},
+#14 25.87     lazyUpdate: null,
+#14 25.87     headers: Map(0) {}
+#14 25.87   },
+#14 25.87   status: 0,
+#14 25.87   statusText: 'Unknown Error',
+#14 25.87   url: 'http://localhost:4800/api/users',
+#14 25.87   ok: false,
+#14 25.87   name: 'HttpErrorResponse',
+#14 25.87   message: 'Http failure response for http://localhost:4800/api/users: 0 undefined',
+#14 25.87   error: TypeError: fetch failed
+#14 25.87       at node:internal/deps/undici/undici:12618:11
+#14 25.87       at a.invoke (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/polyfills.server.mjs:3:6702)
+#14 25.87       at Object.onInvoke (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/chunk-7SXDZZNF.mjs:34:6571)
+#14 25.87       at a.invoke (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/polyfills.server.mjs:3:6642)
+#14 25.87       at m.run (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/polyfills.server.mjs:3:1965)
+#14 25.87       at file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/polyfills.server.mjs:4:577
+#14 25.87       at a.invokeTask (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/polyfills.server.mjs:3:7328)
+#14 25.87       at Object.onInvokeTask (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/chunk-7SXDZZNF.mjs:34:6387)
+#14 25.87       at a.invokeTask (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/polyfills.server.mjs:3:7249)
+#14 25.87       at m.runTask (file:///app/.angular/prerender-root/59e59794-358f-44ca-a8e3-5e6101c50eb3/polyfills.server.mjs:3:2604) {
+#14 25.87     cause: Error: connect ECONNREFUSED ::1:4800
+#14 25.87         at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+#14 25.87       errno: -111,
+#14 25.87       code: 'ECONNREFUSED',
+#14 25.87       syscall: 'connect',
+#14 25.87       address: '::1',
+#14 25.87       port: 4800
+#14 25.87     }
+#14 25.87   }
+#14 25.87 }
+#14 26.07 Browser bundles        
+#14 26.07 Initial chunk files     | Names               |  Raw size | Estimated transfer size
+#14 26.07 main-Y3OXISUS.js        | main                | 138.89 kB |                33.88 kB
+#14 26.07 chunk-4PEWPVB7.js       | -                   | 132.18 kB |                38.83 kB
+#14 26.07 polyfills-SCHOHYNV.js   | polyfills           |  33.72 kB |                11.03 kB
+#14 26.07 styles-E5R2EAIZ.css     | styles              |  82 bytes |                82 bytes
+#14 26.07 
+#14 26.07                         | Initial total       | 304.86 kB |                83.83 kB
+#14 26.07 
+#14 26.07 Lazy chunk files        | Names               |  Raw size | Estimated transfer size
+#14 26.07 chunk-SA6GJNZQ.js       | browser             |  65.75 kB |                17.10 kB
+#14 26.07 
+#14 26.07 
+#14 26.07 Server bundles         
+#14 26.07 Initial chunk files     | Names               |  Raw size
+#14 26.07 server.mjs              | server              |   1.06 MB |                        
+#14 26.07 chunk-XA3VEJXT.mjs      | -                   | 345.06 kB |                        
+#14 26.07 polyfills.server.mjs    | polyfills.server    | 262.32 kB |                        
+#14 26.07 chunk-7SXDZZNF.mjs      | -                   | 210.60 kB |                        
+#14 26.07 chunk-FJDAVH3B.mjs      | -                   |  33.14 kB |                        
+#14 26.07 chunk-VVCT4QZE.mjs      | -                   |   2.48 kB |                        
+#14 26.07 render-utils.server.mjs | render-utils.server |   1.46 kB |                        
+#14 26.07 main.server.mjs         | main.server         | 178 bytes |                        
+#14 26.07 
+#14 26.07 Lazy chunk files        | Names               |  Raw size
+#14 26.07 chunk-O73ZHKXN.mjs      | xhr2                |  11.80 kB |                        
+#14 26.07 chunk-UEJ7WLUZ.mjs      | browser             | 927 bytes |                        
+#14 26.07 
+#14 26.07 Prerendered 2 static routes.
+#14 26.07 Output location: /app/dist/frontend
+#14 26.07 
+#14 26.07 Application bundle generation complete. [22.827 seconds]
+#14 26.07 
+#14 DONE 26.3s
+
+#15 [stage-1 2/2] COPY --from=build /app/dist/frontend /usr/share/nginx/html
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.1s done
+#16 writing image sha256:258480e0f7dba62243406a3c37d4a65dd2a705fb3f2c7ddd381e966c846f3c37 done
+#16 naming to docker.io/gulhaneatharva/mean-frontend:3 0.0s done
+#16 DONE 0.1s
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Frontend Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u gulhaneatharva -p ******** https://index.docker.io/v1/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker tag "gulhaneatharva/mean-frontend:3" "index.docker.io/gulhaneatharva/mean-frontend:3" 
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker push "index.docker.io/gulhaneatharva/mean-frontend:3" 
+The push refers to repository [docker.io/gulhaneatharva/mean-frontend]
+469a5e497ea7: Preparing
+528b47987bcf: Preparing
+a533c9e2e114: Preparing
+6033613561cc: Preparing
+0de02d5b2d31: Preparing
+f80bfdacda57: Preparing
+1241fe31c0bf: Preparing
+4e9e0d6ba2cc: Preparing
+63ca1fbb43ae: Preparing
+f80bfdacda57: Waiting
+1241fe31c0bf: Waiting
+4e9e0d6ba2cc: Waiting
+63ca1fbb43ae: Waiting
+6033613561cc: Layer already exists
+528b47987bcf: Layer already exists
+0de02d5b2d31: Layer already exists
+a533c9e2e114: Layer already exists
+63ca1fbb43ae: Layer already exists
+4e9e0d6ba2cc: Layer already exists
+1241fe31c0bf: Layer already exists
+f80bfdacda57: Layer already exists
+469a5e497ea7: Pushed
+3: digest: sha256:c28b83511f836df6d357336fc7d15e806e32a0b49b319102a1ebf9bc0af2c8d3 size: 2199
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker tag "gulhaneatharva/mean-frontend:3" "index.docker.io/gulhaneatharva/mean-frontend:latest" 
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker push "index.docker.io/gulhaneatharva/mean-frontend:latest" 
+The push refers to repository [docker.io/gulhaneatharva/mean-frontend]
+469a5e497ea7: Preparing
+528b47987bcf: Preparing
+a533c9e2e114: Preparing
+6033613561cc: Preparing
+0de02d5b2d31: Preparing
+f80bfdacda57: Preparing
+1241fe31c0bf: Preparing
+4e9e0d6ba2cc: Preparing
+63ca1fbb43ae: Preparing
+f80bfdacda57: Waiting
+1241fe31c0bf: Waiting
+4e9e0d6ba2cc: Waiting
+63ca1fbb43ae: Waiting
+6033613561cc: Layer already exists
+a533c9e2e114: Layer already exists
+0de02d5b2d31: Layer already exists
+528b47987bcf: Layer already exists
+469a5e497ea7: Layer already exists
+63ca1fbb43ae: Layer already exists
+4e9e0d6ba2cc: Layer already exists
+f80bfdacda57: Layer already exists
+1241fe31c0bf: Layer already exists
+latest: digest: sha256:c28b83511f836df6d357336fc7d15e806e32a0b49b319102a1ebf9bc0af2c8d3 size: 2199
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Backend Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] dir
+Running in C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT\backend
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT\backend>docker build -t "gulhaneatharva/mean-backend:3" --no-cache . 
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 607B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:18-alpine
+#2 DONE 1.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 380B 0.0s done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/node:18-alpine@sha256:02376a266c84acbf45bd19440e08e48b1c8b98037417334046029ab585de03e2
+#4 DONE 0.0s
+
+#5 [2/5] WORKDIR /app
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 73.48kB 0.1s done
+#6 DONE 0.1s
+
+#7 [3/5] COPY package*.json ./
+#7 DONE 0.0s
+
+#8 [4/5] RUN npm install
+#8 3.727 npm warn deprecated transformers@2.1.0: Deprecated, use jstransformer
+#8 5.510 npm warn deprecated constantinople@3.0.2: Please update to at least constantinople 3.1.1
+#8 6.104 npm warn deprecated jade@1.11.0: Jade has been renamed to pug, please install the latest version of pug instead of jade
+#8 7.503 
+#8 7.503 added 164 packages, and audited 165 packages in 7s
+#8 7.503 
+#8 7.504 7 packages are looking for funding
+#8 7.504   run `npm fund` for details
+#8 7.524 
+#8 7.524 13 vulnerabilities (3 low, 2 moderate, 5 high, 3 critical)
+#8 7.524 
+#8 7.524 To address issues that do not require attention, run:
+#8 7.524   npm audit fix
+#8 7.524 
+#8 7.524 To address all issues (including breaking changes), run:
+#8 7.524   npm audit fix --force
+#8 7.524 
+#8 7.524 Run `npm audit` for details.
+#8 7.525 npm notice
+#8 7.525 npm notice New minor version of npm available! 10.7.0 -> 10.9.0
+#8 7.525 npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.9.0
+#8 7.525 npm notice To update run: npm install -g npm@10.9.0
+#8 7.525 npm notice
+#8 DONE 7.7s
+
+#9 [5/5] COPY . .
+#9 DONE 0.0s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.6s done
+#10 writing image sha256:73fd9876184bbb15e17f5dcb796345e9b93d0c6285fed738b38e1273b6ba0295 done
+#10 naming to docker.io/gulhaneatharva/mean-backend:3 done
+#10 DONE 0.7s
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Backend Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u gulhaneatharva -p ******** https://index.docker.io/v1/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker tag "gulhaneatharva/mean-backend:3" "index.docker.io/gulhaneatharva/mean-backend:3" 
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker push "index.docker.io/gulhaneatharva/mean-backend:3" 
+The push refers to repository [docker.io/gulhaneatharva/mean-backend]
+1217c0794b67: Preparing
+518e5ad331e1: Preparing
+001289dc5671: Preparing
+c6aeb9056e92: Preparing
+e2be10e97665: Preparing
+06fd85419b65: Preparing
+f58c462fa079: Preparing
+63ca1fbb43ae: Preparing
+06fd85419b65: Waiting
+f58c462fa079: Waiting
+63ca1fbb43ae: Waiting
+c6aeb9056e92: Layer already exists
+e2be10e97665: Layer already exists
+06fd85419b65: Layer already exists
+f58c462fa079: Layer already exists
+63ca1fbb43ae: Layer already exists
+001289dc5671: Pushed
+1217c0794b67: Pushed
+518e5ad331e1: Pushed
+3: digest: sha256:b79890b11a7481fa506904f2269cf3e7b5e125ccec5a28126bad160f996f297c size: 1993
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker tag "gulhaneatharva/mean-backend:3" "index.docker.io/gulhaneatharva/mean-backend:latest" 
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker push "index.docker.io/gulhaneatharva/mean-backend:latest" 
+The push refers to repository [docker.io/gulhaneatharva/mean-backend]
+1217c0794b67: Preparing
+518e5ad331e1: Preparing
+001289dc5671: Preparing
+c6aeb9056e92: Preparing
+e2be10e97665: Preparing
+06fd85419b65: Preparing
+f58c462fa079: Preparing
+63ca1fbb43ae: Preparing
+06fd85419b65: Waiting
+f58c462fa079: Waiting
+63ca1fbb43ae: Waiting
+e2be10e97665: Layer already exists
+518e5ad331e1: Layer already exists
+1217c0794b67: Layer already exists
+001289dc5671: Layer already exists
+c6aeb9056e92: Layer already exists
+06fd85419b65: Layer already exists
+f58c462fa079: Layer already exists
+63ca1fbb43ae: Layer already exists
+latest: digest: sha256:b79890b11a7481fa506904f2269cf3e7b5e125ccec5a28126bad160f996f297c size: 1993
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build MongoDB Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] dir
+Running in C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT\mongodb
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT\mongodb>docker build -t "gulhaneatharva/mean-mongodb:3" --no-cache . 
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 275B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mongo:latest
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 380B done
+#3 DONE 0.0s
+
+#4 [1/1] FROM docker.io/library/mongo:latest
+#4 CACHED
+
+#5 exporting to image
+#5 exporting layers done
+#5 writing image sha256:4a4355dd423858e395de5c78358974d61d1ac7227af65b74cd2ca72548dffd7f done
+#5 naming to docker.io/gulhaneatharva/mean-mongodb:3 done
+#5 DONE 0.0s
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push MongoDB Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u gulhaneatharva -p ******** https://index.docker.io/v1/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker tag "gulhaneatharva/mean-mongodb:3" "index.docker.io/gulhaneatharva/mean-mongodb:3" 
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker push "index.docker.io/gulhaneatharva/mean-mongodb:3" 
+The push refers to repository [docker.io/gulhaneatharva/mean-mongodb]
+c6704fbf991c: Preparing
+ef6ed07bf093: Preparing
+cc5cea4e1437: Preparing
+32abd080401d: Preparing
+87966a797cfc: Preparing
+5ee4f093a153: Preparing
+5aa8dfb74c5e: Preparing
+931b7ff0cb6f: Preparing
+5ee4f093a153: Waiting
+5aa8dfb74c5e: Waiting
+931b7ff0cb6f: Waiting
+87966a797cfc: Layer already exists
+32abd080401d: Layer already exists
+ef6ed07bf093: Layer already exists
+cc5cea4e1437: Layer already exists
+931b7ff0cb6f: Layer already exists
+c6704fbf991c: Layer already exists
+5ee4f093a153: Layer already exists
+5aa8dfb74c5e: Layer already exists
+3: digest: sha256:7397383080428014e7cc75e7cc7b1e6c3874a34a3ec40e86d146ae7ebe171e93 size: 1994
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker tag "gulhaneatharva/mean-mongodb:3" "index.docker.io/gulhaneatharva/mean-mongodb:latest" 
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>docker push "index.docker.io/gulhaneatharva/mean-mongodb:latest" 
+The push refers to repository [docker.io/gulhaneatharva/mean-mongodb]
+c6704fbf991c: Preparing
+ef6ed07bf093: Preparing
+cc5cea4e1437: Preparing
+32abd080401d: Preparing
+87966a797cfc: Preparing
+5ee4f093a153: Preparing
+5aa8dfb74c5e: Preparing
+931b7ff0cb6f: Preparing
+5aa8dfb74c5e: Waiting
+931b7ff0cb6f: Waiting
+5ee4f093a153: Waiting
+ef6ed07bf093: Layer already exists
+32abd080401d: Layer already exists
+87966a797cfc: Layer already exists
+cc5cea4e1437: Layer already exists
+c6704fbf991c: Layer already exists
+931b7ff0cb6f: Layer already exists
+5ee4f093a153: Layer already exists
+5aa8dfb74c5e: Layer already exists
+latest: digest: sha256:7397383080428014e7cc75e7cc7b1e6c3874a34a3ec40e86d146ae7ebe171e93 size: 1994
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Approval to Deploy)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] input
+WARNING: Unknown parameter(s) found for class type 'org.jenkinsci.plugins.workflow.support.steps.input.InputStep': timeout
+Do you want to proceed with the deployment?
+Proceed or Abort
+Approved by Atharva Gulhane
+
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy MongoDB)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl apply -f mongodb/mongo-pvc.yaml 
+persistentvolumeclaim/mongo-pvc unchanged
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl apply -f mongodb/mongodb-pod.yaml 
+pod/mongodb-pod configured
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl apply -f mongodb/mongodb-service.yaml 
+service/mongodb-service configured
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Frontend)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl apply -f frontend/frontend-pod.yaml 
+pod/frontend-pod unchanged
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl apply -f frontend/frontend-service.yaml 
+service/frontend-service configured
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Backend)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl apply -f backend/backend-pod.yaml 
+pod/backend-pod unchanged
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl apply -f backend/backend-service.yaml 
+service/backend-service configured
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Verify Deployment)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl get pods 
+NAME           READY   STATUS    RESTARTS       AGE
+backend-pod    1/1     Running   20 (17m ago)   13d
+frontend-pod   1/1     Running   2 (17m ago)    13d
+mongodb-pod    1/1     Running   2 (17m ago)    13d
+my-html-pod    1/1     Running   7 (17m ago)    49d
+[Pipeline] bat
+
+C:\ProgramData\Jenkins\.jenkins\workspace\MEAN-STACK-APPLICATION-CODE-TO-DEPLOYEMNT>kubectl get services 
+NAME               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)           AGE
+backend-service    NodePort    10.96.83.230     <none>        3000:30930/TCP    13d
+frontend-service   NodePort    10.106.161.197   <none>        80:30415/TCP      13d
+kubernetes         ClusterIP   10.96.0.1        <none>        443/TCP           49d
+mongodb-service    NodePort    10.98.134.62     <none>        27017:32307/TCP   13d
+my-html-service    NodePort    10.101.97.251    <none>        80:32243/TCP      49d
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] echo
+Pipeline succeeded!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
