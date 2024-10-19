@@ -1,6 +1,3 @@
-You can add a section for images that showcase the Jenkins deployment process. Here’s how you can incorporate that into the `README.md`:
-
-```markdown
 # MEAN Stack Application Deployment
 
 This repository contains the code and configuration for deploying a MEAN stack application using Docker, Kubernetes, and Jenkins.
