@@ -1,6 +1,3 @@
-You can add a section for images that showcase the Jenkins deployment process. Here’s how you can incorporate that into the `README.md`:
-
-```markdown
 # MEAN Stack Application Deployment
 
 This repository contains the code and configuration for deploying a MEAN stack application using Docker, Kubernetes, and Jenkins.
@@ -14,6 +11,7 @@ This repository contains the code and configuration for deploying a MEAN stack a
 - [Deployment Screenshots](#deployment-screenshots)
 - [Contributing](#contributing)
 - [License](#license)
+- [Future Enchancements Planned](#future-enchancements-planned)
 
 ## Prerequisites
 
@@ -24,6 +22,9 @@ Before you begin, ensure you have met the following requirements:
 - **Kubernetes** installed (e.g., using Minikube).
 - **Jenkins** set up with Docker and Kubernetes integration.
 - **kubectl** configured to interact with your Kubernetes cluster.
+
+You also refer an projecct i had previously made for more information - [HTML-PODS-DEPLOYMENT](https://github.com/AtharvaGulhane/HTML-PODS-DEPLOYMENT)
+To Understand the implementation in more detail.
 
 ## Setup
 
@@ -95,7 +96,13 @@ Below are some screenshots showcasing the Jenkins deployment process:
 ### Jenkins Deployment Completion
 ![Jenkins Deployment Completion](images/Succesful%20Deployemnt.png)
 
-Make sure to replace `path/to/your/start-screenshot.png` and `path/to/your/completion-screenshot.png` with the actual paths to your images.
+## Jenkins Output
+[View Jenkins Output](output/Jenkins%20Output.txt)
+
+## Future Enchancements Planned
+- Enhance the Jenkins pipeline with more stages for testing and integration.
+- Implement application security measures such as scanning for vulnerabilities.
+- Explore cloud deployment options to improve scalability and availability.
 
 ## Contributing
 
