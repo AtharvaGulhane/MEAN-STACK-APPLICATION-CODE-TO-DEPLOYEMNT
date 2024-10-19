@@ -83,6 +83,15 @@ pipeline {
             }
         }
 
+        // Add an input stage to decide whether to proceed or abort
+        stage('Approval to Deploy') {
+            steps {
+                script {
+                    input message: 'Do you want to proceed with the deployment?', ok: 'Proceed', timeout: 36000
+                }
+            }
+        }
+
         stage('Deploy MongoDB') {
             steps {
                 script {
@@ -110,12 +119,10 @@ pipeline {
                     if (isUnix()) {
                         sh "${kubectlCmd} apply -f frontend/frontend-pod.yaml"
                         sh "${kubectlCmd} apply -f frontend/frontend-service.yaml"
-                    }
-            else
-            {
+                    } else {
                         bat "${kubectlCmd} apply -f frontend/frontend-pod.yaml"
                         bat "${kubectlCmd} apply -f frontend/frontend-service.yaml"
-            }
+                    }
                 }
             }
         }
@@ -128,7 +135,7 @@ pipeline {
                     if (isUnix()) {
                         sh "${kubectlCmd} apply -f backend/backend-pod.yaml"
                         sh "${kubectlCmd} apply -f backend/backend-service.yaml"
-            } else {
+                    } else {
                         bat "${kubectlCmd} apply -f backend/backend-pod.yaml"
                         bat "${kubectlCmd} apply -f backend/backend-service.yaml"
                     }
